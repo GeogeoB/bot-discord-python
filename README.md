@@ -11,4 +11,4 @@ This Bot is written in NodeJs with the package DiscordJs : https://discord.js.or
 4) type "npm install"
 5) wait ...
 6) type "node bot.js"
-7) Enjoy !
+7) Enjoy 🥐!
