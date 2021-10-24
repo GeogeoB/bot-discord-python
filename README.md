@@ -1,5 +1,5 @@
 # Bot-discord-python
-A Discord Bot to write and launch basic python programs
+A Discord Bot to write and launch basic python programs (Work only on Windows 😐)
 
 This Bot is written in NodeJs with the package DiscordJs : https://discord.js.org/.
 
