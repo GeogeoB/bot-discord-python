@@ -2,11 +2,20 @@ const { exec } = require("child_process");
 const fs = require('fs');
 const { Client, Intents } = require('discord.js');
 const { REPL_MODE_SLOPPY } = require("repl");
+const { setInterval } = require("timers");
+const { strictEqual } = require("assert");
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"] });
 token = "YOUR TOKEN";
 
+const Parsage = 500;
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+
+  client.channels.fetch("196258540065652736").then(channel => {
+    channel.send("OUI tkt je marche");
+  });
+
 });
 
 client.on('messageCreate', message => {
@@ -21,14 +30,26 @@ client.on('messageCreate', message => {
    console.log(Python_msg);
 
     exec("python3 FichierTampon.py",
-      function (error, stdout, stderr) {
+      async function (error, stdout, stderr) {
         console.log(String(error));
 
         if(error) {
           message.reply(String(error));
         }
         else if(stdout != "") {
-          message.reply(stdout);
+          if(stdout.length < 2000) {
+            message.channel.send(stdout);
+          }
+          else {
+            fs.appendFile('FichierTampon.txt', stdout, function (err) {
+            });
+
+            message.channel.send({
+              files: ['./FichierTampon.txt']
+            });
+
+            exec("del /f FichierTampon.txt");
+          }
         }
 
        exec("del /f FichierTampon.py");
